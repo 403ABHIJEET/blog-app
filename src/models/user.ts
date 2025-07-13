@@ -4,6 +4,8 @@ const profilePic: string = process.env.DEFAULT_PROFLE_PIC ?? ''
 
 export interface IUser extends Document {
     username: string
+    fname: string
+    lname?: string
     email: string
     profile: string
     createdAt: Date;
@@ -17,6 +19,13 @@ const UserSchema: Schema<IUser> = new Schema<IUser>(
             required: true,
             trim: true,
             unique: true,
+        },
+        fname: {
+            type: String,
+            required: true
+        },
+        lname: {
+            type: String,
         },
         email: {
             type: String,
