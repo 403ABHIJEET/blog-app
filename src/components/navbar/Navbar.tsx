@@ -5,8 +5,6 @@ import { Button } from "../ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { BiLoaderCircle } from "react-icons/bi";
 import { ProfileMenu } from "./ProfileMenu";
-import { DropdownMenuSeparator } from "../ui/dropdown-menu";
-import { Separator } from "@radix-ui/react-context-menu";
 
 export default function Header() {
   const [initialLoading, setInitialLoading] = useState<boolean>(true);
@@ -16,10 +14,11 @@ export default function Header() {
     if (status !== "loading") {
       setInitialLoading(false);
     }
+    console.log(session?.user?.image)
   }, [status, session]);
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row justify-between items-center px-5 h-14 sm:h-16">
+    <div className="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row justify-between items-center px-5 h-14 sm:h-16 border-b-1">
       <Link href="/">
         <h2 className="font-bold text-xl">LOGO</h2>
       </Link>
