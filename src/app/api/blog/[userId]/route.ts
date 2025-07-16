@@ -1,0 +1,47 @@
+import prisma from "@/lib/prisma"
+import { NextResponse } from "next/server"
+
+export async function GET({ params }: { params: { userId: string }}) {
+    try {
+
+        const { userId } = params
+
+        if(!userId) {
+            return NextResponse.json({
+                success: false,
+                message: "Invalid id."
+            }), {status: 400}
+        }
+
+        const user = await prisma.user.findFirst({
+            where: {
+                id: userId
+            }
+        })
+
+        if(!user) {
+            return NextResponse.json({
+                success: false,
+                message: "User doesn't exist"
+            }), {status: 404}
+        }
+
+        const blogs = await prisma.blog.findMany({
+            where: {
+                userId: userId
+            }
+        }) 
+
+        return NextResponse.json({
+            success: true,
+            message: "blogs fetched successfully.",
+            data: blogs
+        }, {status: 200})
+
+    } catch (error) {
+        return NextResponse.json({
+            success: false,
+            message: "Something went wrong."
+        }, {status: 500})
+    }
+}
