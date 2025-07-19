@@ -76,7 +76,8 @@ model Blog {
 model Comment {
   id        Int      @id @default(autoincrement())
   userId    String
-  parentId  Int?
+  blogId    Int
+  parentId  Int      @default(0)
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())

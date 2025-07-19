@@ -1,16 +1,16 @@
 import prisma from "@/lib/prisma"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function GET({ params }: { params: { userId: string }}) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ userId: string }> }) {
     try {
 
-        const { userId } = params
+        const { userId } = await params
 
         if(!userId) {
             return NextResponse.json({
                 success: false,
                 message: "Invalid id."
-            }), {status: 400}
+            }, {status: 400})
         }
 
         const user = await prisma.user.findFirst({
@@ -23,7 +23,7 @@ export async function GET({ params }: { params: { userId: string }}) {
             return NextResponse.json({
                 success: false,
                 message: "User doesn't exist"
-            }), {status: 404}
+            }, {status: 404})
         }
 
         const blogs = await prisma.blog.findMany({

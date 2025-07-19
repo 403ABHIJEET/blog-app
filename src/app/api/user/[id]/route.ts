@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma"
 import { NextRequest, NextResponse } from "next/server"
 
-export async function GET({params}: {params: {id: string}}) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const { id } = params
+        const { id } = await params
 
         if(!id) {
             return NextResponse.json({
@@ -38,10 +38,10 @@ export async function GET({params}: {params: {id: string}}) {
     }
 }
 
-export async function PUT(request: NextRequest, {params}: {params: {id: string}}) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { username } = await request.json()
-        const { id } = params
+        const { id } = await params
 
         if(!id) {
             return NextResponse.json({
@@ -62,7 +62,8 @@ export async function PUT(request: NextRequest, {params}: {params: {id: string}}
                 id: id
             },
             data: {
-                username
+                username,
+                updatedAt: new Date()
             }
         })
 
@@ -79,9 +80,9 @@ export async function PUT(request: NextRequest, {params}: {params: {id: string}}
     }
 }
 
-export async function DELETE({params}: {params: {id: string}}) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
-        const { id } = params
+        const { id } = await params
 
         if(!id) {
             return NextResponse.json({
@@ -94,6 +95,16 @@ export async function DELETE({params}: {params: {id: string}}) {
             where: {
                 id: id
             },
+        })
+        await prisma.blog.deleteMany({
+            where: {
+                userId: id
+            }
+        })
+        await prisma.comment.deleteMany({
+            where: {
+                userId: id
+            }
         })
 
         return NextResponse.json({
