@@ -23,8 +23,8 @@ Follow the steps below to set up the project:
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd <project-folder>
+git clone https://github.com/403ABHIJEET/blog-app.git
+cd blog-app
 ```
 
 ### 2. Install Dependencies
