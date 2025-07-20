@@ -82,3 +82,10 @@ model Comment {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  blogId    Int
+  createdAt DateTime @default(now())
+}

@@ -1,6 +1,6 @@
 export default function LoadingCard() {
   return (
-    <div className="relative w-1/3 h-64 p-4 border border-gray-200 rounded-2xl shadow overflow-hidden bg-white">
+    <div className="relative w-2/5 h-64 p-4 border-gray-200 rounded-2xl overflow-hidden bg-white">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-100 to-transparent animate-shimmer z-10" />
 
       <div className="relative z-20">

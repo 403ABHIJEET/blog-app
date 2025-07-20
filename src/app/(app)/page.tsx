@@ -34,7 +34,7 @@ export default function Home() {
       {!loading ? (
         blogs.length ? (
           blogs.map((blog: Blog) => (
-            <div key={blog.id} className="flex justify-center m-4">
+            <div key={blog.id} className="flex justify-center">
               <BlogCard blog={blog} />
             </div>
           ))
