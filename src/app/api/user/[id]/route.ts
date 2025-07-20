@@ -4,20 +4,19 @@ import { NextRequest, NextResponse } from "next/server"
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { id } = await params
-
         if(!id) {
             return NextResponse.json({
                 success: false,
                 message: "Invalid id."
             }, {status: 400})
         }
-
+        
         const user = await prisma.user.findFirst({
             where: {
                 id: id
             }
         })
-
+        
         if(!user) {
             return NextResponse.json({
                 success: false,
@@ -28,17 +27,19 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         return NextResponse.json({
             success: true,
             message: "User data fetched successfully.",
-        }, {status: 204})
+            data: user
+        }, {status: 200})
 
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong."
+            message: "Something went wrong.",
+            error: error
         }, {status: 500})
     }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { username } = await request.json()
         const { id } = await params
@@ -70,12 +71,13 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         return NextResponse.json({
             success: true,
             message: "Username updated successfully.",
-            data: user
+            data: user,
         }, {status: 200})
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong."
+            message: "Something went wrong.",
+            error: error
         }, {status: 500})
     }
 }
@@ -116,7 +118,8 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong."
+            message: "Something went wrong.",
+            error: error
         }, {status: 500})
     }
 }

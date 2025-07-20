@@ -18,7 +18,7 @@ export default function Header() {
   }, [status, session]);
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row justify-between items-center px-5 h-14 sm:h-16 border-b-1">
+    <div className="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row justify-between items-center px-5 h-14 sm:h-16 border-b-1 bg-white">
       <Link href="/">
         <h2 className="font-bold text-xl">LOGO</h2>
       </Link>
