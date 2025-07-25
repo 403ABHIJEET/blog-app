@@ -83,7 +83,7 @@ export default function BlogCard(props: props) {
 
             <CardFooter className="flex justify-between items-center">
               <div className="flex gap-2 text-gray-600">
-                <Like />
+                <Like blogId={props.blog.id} />
                 <Link href={blogLink}>
                   <Button
                     variant="ghost"
