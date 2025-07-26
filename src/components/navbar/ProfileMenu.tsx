@@ -24,8 +24,7 @@ export function ProfileMenu(props: props) {
   const [open, setOpen] = React.useState(false);
 
   const fName = props.name.split(' ')[0][0]
-  const lName = props.name.split(' ')[1][0]
-  const profileLogoName = (fName + lName).toUpperCase()
+  const profileLogoName = fName.toUpperCase()
 
   return (
     <Avatar className="flex justify-center">

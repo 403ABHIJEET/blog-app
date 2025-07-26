@@ -1,1 +1,4 @@
-export const ERROR_MESSAGE = "Something went wrong."
+export const ERROR_MESSAGE = {
+    SERVER: "Something went wrong.",
+    CLIENT: "Invalid Request."
+}

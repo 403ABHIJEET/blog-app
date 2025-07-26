@@ -1,13 +1,15 @@
 import prisma from "@/lib/prisma"
+import { ERROR_MESSAGE } from "@/util/constants"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
     try {
         const { id } = await params
+
         if(!id) {
             return NextResponse.json({
                 success: false,
-                message: "Invalid id."
+                message: ERROR_MESSAGE.CLIENT
             }, {status: 400})
         }
         
@@ -33,7 +35,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong.",
+            message: ERROR_MESSAGE.SERVER,
             error: error
         }, {status: 500})
     }
@@ -47,7 +49,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
         if(!id) {
             return NextResponse.json({
                 success: false,
-                message: "Invalid id."
+                message: ERROR_MESSAGE.CLIENT
             }, {status: 400})
         }
 
@@ -73,10 +75,11 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
             message: "Username updated successfully.",
             data: user,
         }, {status: 200})
+
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong.",
+            message: ERROR_MESSAGE.SERVER,
             error: error
         }, {status: 500})
     }
@@ -89,7 +92,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         if(!id) {
             return NextResponse.json({
                 success: false,
-                message: "Invalid id."
+                message: ERROR_MESSAGE.CLIENT
             }, {status: 400})
         }
 
@@ -118,7 +121,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong.",
+            message: ERROR_MESSAGE.SERVER,
             error: error
         }, {status: 500})
     }

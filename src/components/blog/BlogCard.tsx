@@ -12,10 +12,10 @@ import { useEffect, useState } from "react";
 import LoadingCard from "@/components/blog/LoadingCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Avatar, AvatarImage } from "../ui/avatar";
 import { getTimeAgo } from "@/util/common";
 import { CommentSvg } from "@/util/svgs";
 import Like from "./Like";
+import AvatarCustom from "../navbar/AvatarCustom";
 
 interface props {
   blog: Blog;
@@ -53,9 +53,10 @@ export default function BlogCard(props: props) {
         <div className="w-2/5 border-b-2 py-1">
           <Card className=" flex flex-col justify-between border-none hover:bg-gray-100 shadow-none gap-2 py-2">
             <CardHeader className="flex justify-start items-center">
-              <Avatar className="w-6 h-6">
-                <AvatarImage src={user?.image ?? ""} />
-              </Avatar>
+              {
+                user &&
+                <AvatarCustom userImage={user?.image ?? ''} userName={user?.name ?? ''} />
+              }
               <CardAction className="flex items-center text-gray-700">
                 r/{user?.name} • {getTimeAgo(props.blog.createdAt)}
               </CardAction>

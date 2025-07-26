@@ -1,21 +1,31 @@
 import prisma from "@/lib/prisma";
+import { ERROR_MESSAGE } from "@/util/constants";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
     try {
         const { userId, title, content } = await request.json()
-        const blog = await prisma.blog.create({
-            data: {
-                userId,
-                title,
-                content,
-            }
-        })
+
+        if (userId && title && content) {
+            const blog = await prisma.blog.create({
+                data: {
+                    userId,
+                    title,
+                    content,
+                }
+            })
+            return NextResponse.json({
+                success: true,
+                message: "Blog saved successfully.",
+                data: blog
+            }, { status: 201 })
+        }
+
         return NextResponse.json({
-            success: true,
-            message: "Blog saved successfully.",
-            data: blog
-        }, { status: 201 })
+            success: false,
+            message: ERROR_MESSAGE.CLIENT
+        }, {status: 400})
+
     } catch (error) {
         console.log(error)
         return NextResponse.json({

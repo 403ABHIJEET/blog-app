@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { ERROR_MESSAGE } from "@/util/constants";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ blogId: string }> }) {
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     } catch (error) {
         return NextResponse.json({
             success: false,
-            message: "Something went wrong"
+            message: ERROR_MESSAGE.SERVER
         }, {status: 500})
     }
 }

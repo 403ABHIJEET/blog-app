@@ -1,5 +1,7 @@
-export function getTimeAgo(dateString: Date) {
-  console.log(dateString)
+export function getTimeAgo(dateString?: Date) {
+  if(!dateString) {
+    return 'just now'
+  }
   const createdAt = new Date(dateString);
   const now = new Date();
   const diffMs = now.getTime() - createdAt.getTime();
